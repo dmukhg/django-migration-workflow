@@ -96,7 +96,7 @@ After this, I added an extra field called fetch in the model. And ran makemigrat
 
 ```bash
 >./manage.py makemigrations blinkers                                                                      ~/repos/kitchensink/newness
->./manage.py sqlmigrate blinkers 0002_newhope_fetch                                                       ~/repos/kitchensink/newness
+> ./manage.py sqlmigrate blinkers 0002_newhope_fetch                                                      ~/repos/kitchensink/newness
 BEGIN;
 --
 -- Add field fetch to newhope
@@ -108,7 +108,19 @@ DROP TABLE "blinkers_newhope__old";
 COMMIT;
 ```
 
-Notice how slyly django dropped the table and created a new one? It does that for _any_ field addition in _any_ model. So, clearly *for any table that we manage on our own with custom SQL, we should continue writing _all_ the migration files ourselves* as described before.
+Notice how slyly django dropped the table and created a new one? It does this for SQLite. [https://docs.djangoproject.com/en/1.8/topics/migrations/#sqlite](https://docs.djangoproject.com/en/1.8/topics/migrations/#sqlite).
+We have verified that it doesn't do this for MySQL databases. For MySQL, you get the general:
+
+```bash
+> ./manage.py sqlmigrate blinkers 0002_newhope_fetch                                   ~/repos/kitchensink/django-migrations-workflow
+BEGIN;
+--
+-- Raw SQL operation
+--
+ALTER TABLE `blinkers_newhope` ADD COLUMN (`fetch` integer NOT NULL);
+COMMIT;
+```
+
 
 ## Dependencies
 
@@ -179,5 +191,3 @@ COMMIT;
 Because we don't want to customize the SQL, we can leave this migration as it is.
 
 Then, I changed the default value twice and created migration files using `makemigrations` twice as well. It generated migration files which have correctly aligned dependencies.
-
-## 
