@@ -19,10 +19,10 @@ class Migration(migrations.Migration):
           --
           -- Create model NewHope
           --
-          CREATE TABLE "blinkers_newhope" (
-            "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
-            "xml" text NOT NULL, 
-            "title" varchar(100) GENERATED ALWAYS AS (extractvalue(`xml`,'/article/title')) STORED 
+          CREATE TABLE `blinkers_newhope` (
+            `id` integer NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+            `xml` text NOT NULL, 
+            `title` varchar(100) GENERATED ALWAYS AS (extractvalue(`xml`,'/article/title')) STORED 
           );
           """,
           reverse_sql="BEGIN; DROP TABLE `blinkers_newhope`; COMMIT",

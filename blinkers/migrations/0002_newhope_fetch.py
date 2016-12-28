@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             --
             -- Add field fetch to newhope
             --
-            ALTER TABLE "blinkers_newhope" ADD COLUMN ("fetch" integer NOT NULL); 
+            ALTER TABLE `blinkers_newhope` ADD COLUMN (`fetch` integer NOT NULL); 
             """,
             reverse_sql="ALTER TABLE `blinkers_newhope` REMOVE COLUMN 'fetch';",
             state_operations=[
